@@ -1,0 +1,55 @@
+import matplotlib.pyplot as plt
+
+# ==========================================
+# 1. INSERT YOUR DATA HERE 
+# (Update these arrays with the exact numbers from your terminal output)
+# ==========================================
+cache_sizes = [16, 32, 64]
+
+lru_hit_ratios = [22.66, 30.41, 39.89]
+lfu_hit_ratios = [22.49, 30.68, 40.81]
+proposed_hit_ratios = [26.02, 36.14, 48.83]
+
+lru_latencies = [7.746, 6.975, 6.031]
+lfu_latencies = [7.762, 6.948, 5.939]
+proposed_latencies = [7.411, 6.404, 5.141]
+
+# ==========================================
+# 2. GENERATE HIT RATIO CHART
+# ==========================================
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1) # 1 row, 2 columns, 1st subplot
+plt.plot(cache_sizes, lru_hit_ratios, marker='o', linestyle='--', color='gray', label='LRU Baseline')
+plt.plot(cache_sizes, lfu_hit_ratios, marker='s', linestyle='--', color='blue', label='LFU Baseline')
+plt.plot(cache_sizes, proposed_hit_ratios, marker='^', linewidth=2.5, color='green', label='Context-Aware Inline (Proposed)')
+
+plt.title('Hit Ratio vs. Cache Capacity')
+plt.xlabel('Max Cache Size (MB)')
+plt.ylabel('Hit Ratio (%)')
+plt.xticks(cache_sizes)
+plt.grid(True, linestyle=':', alpha=0.7)
+plt.legend()
+
+# ==========================================
+# 3. GENERATE AVERAGE LATENCY CHART
+# ==========================================
+plt.subplot(1, 2, 2) # 1 row, 2 columns, 2nd subplot
+plt.plot(cache_sizes, lru_latencies, marker='o', linestyle='--', color='gray', label='LRU Baseline')
+plt.plot(cache_sizes, lfu_latencies, marker='s', linestyle='--', color='blue', label='LFU Baseline')
+plt.plot(cache_sizes, proposed_latencies, marker='^', linewidth=2.5, color='green', label='Context-Aware Inline (Proposed)')
+
+plt.title('Avg Latency vs. Cache Capacity')
+plt.xlabel('Max Cache Size (MB)')
+plt.ylabel('Average Response Time (ms)')
+plt.xticks(cache_sizes)
+plt.grid(True, linestyle=':', alpha=0.7)
+plt.legend()
+
+# ==========================================
+# 4. SAVE AND DISPLAY
+# ==========================================
+plt.tight_layout()
+plt.savefig('evaluation_results.png', dpi=300)
+print("Charts successfully saved as 'evaluation_results.png'")
+plt.show()
